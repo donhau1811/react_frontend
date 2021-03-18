@@ -3,13 +3,13 @@ import { Link, withRouter } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth";
 
 const isActive = (history, path) => {
-  if (history.location.pathname === path) return { color: "#ff0000" };
+  if (history.location.pathname === path) return { color: "#ff9900" };
   else return { color: "#ffffff" };
 };
 
 const Menu = ({ history }) => (
   <div>
-    <ul className="nav nav-tabs" style={{ backgroundColor: "#ff0000" }}>
+    <ul className="nav nav-tabs" style={{ backgroundColor: " #334d00" }}>
       <li className="nav-item">
         <Link className="nav-link" style={isActive(history, "/")} to="/">
           Home

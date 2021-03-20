@@ -97,7 +97,7 @@ class Signin extends Component {
 
         {this.signinForm(email, password)}
 
-        <button className="btn btn-raised btn-danger">
+        <button className="btn btn-raised btn-warning btn-lg">
           <Link to="/forgot-password" >
             {" "}
             Forgot Password

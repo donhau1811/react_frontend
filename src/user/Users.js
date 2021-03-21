@@ -8,18 +8,33 @@ class Users extends Component {
     super();
     this.state = {
       users: [],
+      page: 1,
     };
   }
 
-  componentDidMount() {
-    list().then((data) => {
+  loadUsers = (page) => {
+    list(page).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
         this.setState({ users: data });
       }
     });
+  };
+
+  componentDidMount() {
+    this.loadUsers(this.state.page);
   }
+
+  loadMore = (number) => {
+    this.setState({ page: this.state.page + number });
+    this.loadUsers(this.state.page + number);
+  };
+
+  loadLess = (number) => {
+    this.setState({ page: this.state.page - number });
+    this.loadUsers(this.state.page - number);
+  };
 
   renderUsers = (users) => (
     <div className="row">
@@ -48,12 +63,34 @@ class Users extends Component {
   );
 
   render() {
-    const { users } = this.state;
+    const { users, page } = this.state;
     return (
       <div className="container">
         <h2 className="mt-5 mb-5">Users</h2>
 
         {this.renderUsers(users)}
+
+        {page > 1 ? (
+          <button
+            className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+            onClick={() => this.loadLess(1)}
+          >
+            Previous ({this.state.page - 1})
+          </button>
+        ) : (
+          ""
+        )}
+
+        {users.length ? (
+          <button
+            className="btn btn-raised btn-success mt-5 mb-5"
+            onClick={() => this.loadMore(1)}
+          >
+            Next ({page + 1})
+          </button>
+        ) : (
+          <h4 className="text-warning">No More Users</h4>
+        )}
       </div>
     );
   }
